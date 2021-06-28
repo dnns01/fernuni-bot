@@ -10,7 +10,7 @@ from cogs.help import help, handle_error
 class Welcome(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.channel_id = int(os.getenv("DISCORD_WELCOME_CHANNEL"))
+        self.channel_id = int(os.getenv("DISCORD_FAQ_CHANNEL"))
         self.message_id = int(os.getenv("DISCORD_WELCOME_MSG"))
 
     @help(
@@ -24,43 +24,86 @@ class Welcome(commands.Cog):
         channel = await self.bot.fetch_channel(self.channel_id)
         message = await channel.fetch_message(self.message_id)
 
-        embed = discord.Embed(title="Herzlich Willkommen auf dem Discord von Studierenden für Studierende.",
-                              description="Disclaimer: Das hier ist kein offizieller Kanal der Fernuni. Hier findet auch keine offizielle Betreuung durch die Fernuni statt. Dieser Discord dient zum Austausch unter Studierenden über einzelne Kurse, um sich gegenseitig helfen zu können, aber auch um über andere Themen in einen Austausch zu treten. Es soll KEIN Ersatz für die Kanäle der Lehrgebiete sein, wie die Newsgroups, Moodle-Foren und was es noch so gibt. Der Discord soll die Möglichkeit bieten, feste Lerngruppen zu finden und sich in diesen gegenseitig zu helfen und zu treffen. Zudem soll er durch den Austausch in den Kanälen auch eine Art flexible Lerngruppe zu einzelnen Kursen ermöglichen. Daher ist unser Apell an euch: Nutzt bitte auch die Betreuungsangebote der entsprechenden Kurse, in die ihr eingeschrieben seid. ")
-        #kürzen
+    """
+    #🖼 FAQ    
+    """
+
+        embed = discord.Embed(title="Inhaltsverzeichnis ",
+                              description="Frequently Asked Questions")       
         embed.set_thumbnail(
             url="https://cdn.discordapp.com/avatars/697842294279241749/c7d3063f39d33862e9b950f72ab71165.webp")
-               
-        embed.add_field(name="Boty McBotface",
-                        value=f"Boty ist der Server-Bot und kann dein Freund und Helfer sein, wenn es um die Organisation deines Studiums geht. In <#{os.getenv('DISCORD_BOTUEBUNGSPLATZ_CHANNEL')}> kann man mit den verschiedenen Befehlen rumprobieren, bei `!help` wird er dir per Direktnachricht einen Überblick von seinen Funktionen geben.", 
-                        #channelverlinkung anders?
-                        inline=False)
-
-        embed.add_field(name="Vorstellung",
-                        value=f"Es gibt einen <#{os.getenv('DISCORD_VORSTELLUNGSCHANNEL')}>. Wir würden uns freuen, wenn ihr euch kurz vorstellen würdet. So ist es möglich, Gemeinsamkeiten zu entdecken und man weiß ungefähr, mit wem man es zu tun hat. Hier soll auch gar nicht der komplette Lebenslauf stehen, schreibt einfach das, was ihr so über euch mitteilen möchtet.",
-                        inline=False)
-                
-        embed.add_field(name="Rollen",
-                        value=f"Es gibt verschiedene Rollen hier. Derzeit sind das zum einen Rollen zu den verschiedenen Studiengängen unserer Fakultät (sowie allgemeinere Rollen), Farbrollen. Wirf doch mal einen Blick in <#{os.getenv('DISCORD_ROLLEN_CHANNEL')}>",
-                        inline=False)
-        
-        embed.add_field(name="Lerngruppen",
-                        value="Wenn ihr eine feste Lerngruppe gründen möchtet, dann könnt ihr dafür gerne einen eigenen Textchannel bekommen. Sagt einfach bescheid, dann kann dieser erstellt werden. Ihr könnt dann auch entscheiden, ob nur ihr Zugang zu diesem Channel haben möchtet, oder ob dieser für alle zugänglich sein soll.",
-                        inline=False)
-
-        embed.add_field(name="Nachrichten anpinnen",
-                        value="Wenn ihr Nachrichten in einem Channel anpinnen möchtet, könnt ihr dafür unseren Bot verwenden. Setzt einfach eine :pushpin: Reaktion auf die entsprechende Nachricht und der pin-bot erledigt den Rest.", 
-                        #eventuell bei Boty ansiedeln
-                        inline=False)    
-                
-        embed.add_field(name="Regeln",
-                        value="Es gibt hier ein paar, wenige Regeln, an die wir uns alle halten wollen. Diese findet ihr hier https://discordapp.com/channels/353315134678106113/697729059173433344/709475694157234198",
-                        inline=False)
-        
-        embed.add_field(name="Discord Tipps",
-                        value="Mit `Strg` + `#` (deutscher Tastaturlayout) erhält man einen Überblick über die Discord-Shortcuts. \n- Zur Übersichtlichkeit kann man stummgeschaltete Channels ausblenden: https://support.discord.com/hc/de/articles/213599277-Wie-verstecke-Ich-stumme-Kanäle-,\n- Markdown (und damit Code-Blöcke) gibt es hier auch: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-",
-                        inline=False)   
+         
+        #Ist ein leerer Feldname zulässig?
+        embed.add_field(name="", 
+                        value=f"[1. Boty McBotface](Link zur Nachricht) \n"
+                                "[2. Lerngruppen](Link) \n"
+                                "[3. Rollen](Link) \n"
+                                "[4. Fun & Games] (Link) \n"
+                                "[5.FernUni 101](Link) \n"
+                                "[6. Discord 101](Link) \n", 
+                        inline=False)  
 
         await message.edit(content="", embed=embed)
+#TODO: Damit die einzelne Links auf exitierende Nachrichten zeigen, müsste man den Inhaltsverzeichnis separat (nachträglich) aktualisieren können.
+
+#Neue Nachricht
+        """
+        ##🖼 Regeln
+        
+            Es sind vier Regeln, die unbedingt einzuhalten sind: 
+```md
+1. Behandle alle mit Respekt. Keine diskriminierenden Äußerungen. Keine Belästigung.
+2. Konstruktive und spezifische Kritik ist erwünscht, Trolls sind es nicht. 
+3. Dies ist eine werbefreie Zone. Für andere Posts suche dir am Besten erst den richtigen Channel.
+4. Betrug bei Prüfungsleistungen und der Aufruf zu solchem wird mit sofortigem Ban geahndet.
+5. Überprüfe, bevor du eine Datei hochlädst / einen Link teilst, ob der Inhalt urheberrechtlich geschützt ist.
+```
+:mag: Link vom BMBF zur Orientierung in Sachen Urheberrecht: https://www.bmbf.de/de/was-forschende-und-lehrende-wissen-sollten-9523.html
+
+:bulb: Ein Verstoß kann durch eine ernst gemeinte Entschuldigung wieder gut gemacht werden. 
+```md
+1. Bei Verstößen wird zunächst darauf hingewiesen. 
+2. Sollte es danach weiterhin zu einem Regelverstoß kommen, so wird eine Verwarnung ausgesprochen.
+3. Wer auf die "stille Treppe" geschickt wird, kann für eine vorgegebene Zeit nicht mehr schreiben oder sprechen, nur noch lesen und hören.
+4. Sollte die ausgesprochene Verwarnung keine Besserung bringen, so ist die nächste Maßnahme ein Kick von diesem Server. 
+5. Die letzte und hoffentlich nicht notwendige Maßnahme ist der Bann von diesem Server.
+```
+        """
+
+#Neue Nachricht
+        """
+        ##🖼 Boty McBotface
+        """
+    
+#Neue Nachricht
+        """
+        ##🖼 Lerngruppen
+        """
+        
+#Neue Nachricht
+        """
+        ##🖼 Rollen 
+        """
+
+#Neue Nachricht
+        """
+        ##🖼 Fun & Games 
+        """
+        
+#Neue Nachricht
+        """
+        ##🖼 FernUni 101 
+        """
+
+#Neue Nachricht
+        """
+        ##🖼 Discord 101
+        """
+
+#Neue Nachricht
+    """
+    #🖼 Server    
+    """
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
