@@ -18,4 +18,4 @@ multidict==6.0.5
 pycparser==2.22
 soupsieve==2.6
 typing_extensions==4.12.2
-yarl==1.10.0
+yarl==1.18.0
